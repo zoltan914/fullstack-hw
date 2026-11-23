@@ -47,6 +47,16 @@ public class Task10Tests {
             List.of(8.0, 13.0, 15.0, 20.0, 25.0),
             3,
             List.of(12.0, 16.0, 20.0)
+        ),
+        Arguments.of(
+            List.of(10.0, 20.0, 30.0, 40.0),
+            3,
+            List.of(20.0, 30.0)
+        ),
+        Arguments.of(
+                List.of(10.0, 20.0, 30.0, 40.0, 50.0, 60.0),
+                3,
+                List.of(20.0, 30.0, 40.0, 50.0)
         )
     );
   }
