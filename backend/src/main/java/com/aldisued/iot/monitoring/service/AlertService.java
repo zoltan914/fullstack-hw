@@ -2,6 +2,7 @@ package com.aldisued.iot.monitoring.service;
 
 import com.aldisued.iot.monitoring.dto.AlertDto;
 import com.aldisued.iot.monitoring.entity.Alert;
+import com.aldisued.iot.monitoring.entity.Sensor;
 import com.aldisued.iot.monitoring.repository.AlertRepository;
 import com.aldisued.iot.monitoring.repository.SensorRepository;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,8 @@ public class AlertService {
   private final SensorRepository sensorRepository;
   private final KafkaTemplate<String, AlertDto> kafkaTemplate;
 
+  private static final String ALERTS_TOPIC = "alerts";
+
   public AlertService(AlertRepository alertRepository, SensorRepository sensorRepository,
       KafkaTemplate<String, AlertDto> kafkaTemplate) {
     this.alertRepository = alertRepository;
@@ -27,7 +30,20 @@ public class AlertService {
 
   public Alert saveAlert(AlertDto alertDto) {
     // TODO: Task 6
-    return null;
+    Sensor sensor = sensorRepository.findById(alertDto.sensorId())
+            .orElseThrow(() -> new RuntimeException("Sensor with id: " + alertDto.sensorId() + " not found"));
+
+    // save new alert to database
+    Alert alert = new Alert();
+    alert.setMessage(alertDto.message());
+    alert.setTimestamp(alertDto.timestamp());
+    alert.setSensor(sensor);
+    Alert savedAlert = alertRepository.save(alert);
+
+    // send message to ALERTS_TOPIC
+    kafkaTemplate.send(ALERTS_TOPIC, alertDto);
+
+    return savedAlert;
   }
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {
