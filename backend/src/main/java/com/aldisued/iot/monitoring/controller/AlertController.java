@@ -21,7 +21,7 @@ public class AlertController {
 
   @GetMapping("/latest")
   public AlertDto findLastAlertBySensorId(
-          @RequestParam(name = "sensorId", required = true) UUID sensorId
+          @RequestParam(name = "sensorId") UUID sensorId
   ) {
     return alertService.findLastAlertBySensorId(sensorId);
   }
