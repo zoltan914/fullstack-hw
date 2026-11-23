@@ -4,9 +4,12 @@ import com.aldisued.iot.monitoring.dto.AlertDto;
 import com.aldisued.iot.monitoring.entity.Alert;
 import com.aldisued.iot.monitoring.repository.AlertRepository;
 import com.aldisued.iot.monitoring.repository.SensorRepository;
-import java.util.UUID;
+import org.springframework.http.HttpStatus;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.util.UUID;
 
 @Service
 public class AlertService {
@@ -29,6 +32,15 @@ public class AlertService {
 
   public AlertDto findLastAlertBySensorId(UUID sensorId) {
     // TODO: Task 5
-    return null;
+    return alertRepository.findFirstBySensorIdOrderByTimestampDesc(sensorId)
+            .map(latestAlert -> new AlertDto(
+                    latestAlert.getSensor().getId(),
+                    latestAlert.getMessage(),
+                    latestAlert.getTimestamp()
+            ))
+            .orElseThrow(() -> new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "No alert found for the given sensor ID: " + sensorId
+            ));
   }
 }
