@@ -55,7 +55,6 @@ export default function SensorReadingsPage() {
       alert("The timestamp cannot be in the future!");
       return;
     }
-    console.log(id)
 
     // Ezt az objektumot küldheted el a backendnek
     const newReading: SensorReadingDto = {

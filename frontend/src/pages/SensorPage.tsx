@@ -6,7 +6,6 @@ import { useNavigate } from "react-router";
 export default function SensorPage() {
   const [sensors, setSensors] = useState<Sensor[]>([])
   const navigate = useNavigate(); 
-  console.log(sensors)
 
   useEffect(() => {
     const fetchData = async () => {

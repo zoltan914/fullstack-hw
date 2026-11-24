@@ -6,7 +6,7 @@ import { getAllAlerts } from "../services/api";
 export default function AlertPage() {
   const navigate = useNavigate(); 
   const [alerts, setAlerts] = useState<Alert[]>([])
-  console.log(alerts)
+  
   useEffect(() => {
     const fetchData = async () => {
       const allAlerts = await getAllAlerts()
