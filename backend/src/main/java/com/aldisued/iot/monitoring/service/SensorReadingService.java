@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SensorReadingService {
@@ -24,6 +25,10 @@ public class SensorReadingService {
 
   public List<SensorReading> getAllSensorReadings() {
     return sensorReadingRepository.findAll();
+  }
+
+  public List<SensorReading> getAllSensorReadingsBySensorId(UUID sensorId) {
+    return sensorReadingRepository.findAllBySensorId(sensorId);
   }
 
   public SensorReading saveSensorReading(SensorReadingDto sensorReadingDto) {

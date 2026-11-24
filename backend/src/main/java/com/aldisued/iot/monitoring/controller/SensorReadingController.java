@@ -6,6 +6,7 @@ import com.aldisued.iot.monitoring.service.SensorReadingService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/sensor-readings")
@@ -21,6 +22,11 @@ public class SensorReadingController {
   @GetMapping
   public List<SensorReading> getAllSensorReadings() {
     return sensorReadingService.getAllSensorReadings();
+  }
+
+  @GetMapping("/{sensorId}")
+  public List<SensorReading> getAllSensorReadingsBySensorId(@PathVariable UUID sensorId) {
+    return sensorReadingService.getAllSensorReadingsBySensorId(sensorId);
   }
 
   @PostMapping

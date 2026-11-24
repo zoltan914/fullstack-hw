@@ -5,15 +5,39 @@ import { defineConfig } from 'vite'
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 5173,
     proxy: {
-      // Itt sorold fel a Spring Boot kontrollereid kezdő útvonalait
-      // Például: http://localhost:8080/users és http://localhost:8080/auth
-      '^/(sensors|sensor-readings|alerts)': {
+      // Itt adjuk meg a backend portját (8080)
+      '/sensors': {
         target: 'http://localhost:8080',
         changeOrigin: true,
-        secure: false,
+        // EZ A KULCS: Csak akkor küldje a backendre, ha a kérés JSON-t vagy API-t vár
+        bypass: (req) => {
+          // Ha a böngésző HTML oldalt kér (pl. kézi beírás vagy F5 frissítésnél), 
+          // akkor NE küldje a backendre, hanem adja vissza a React index.html-t
+          if (req.headers.accept && req.headers.accept.includes('text/html')) {
+            return '/index.html';
+          }
+        },
+      },
+      // Ha a /sensor-readings endpointot is használod, arra is tedd rá ugyanezt:
+      '/sensor-readings': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        bypass: (req) => {
+          if (req.headers.accept && req.headers.accept.includes('text/html')) {
+            return '/index.html';
+          }
+        },
+      },
+      '/alerts': {
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        bypass: (req) => {
+          if (req.headers.accept && req.headers.accept.includes('text/html')) {
+            return '/index.html';
+          }
+        },
       }
-    }
-  }
+    },
+  },
 })

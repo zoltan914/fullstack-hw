@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface SensorReadingRepository extends JpaRepository<SensorReading, String> {
 
@@ -33,4 +34,6 @@ public interface SensorReadingRepository extends JpaRepository<SensorReading, St
             @Param("from") LocalDateTime from,
             @Param("to") LocalDateTime to
     );
+
+    List<SensorReading> findAllBySensorId(UUID sensorId);
 }

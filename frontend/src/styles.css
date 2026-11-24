@@ -81,7 +81,6 @@ main:focus {
 h1,
 h2,
 h3 {
-  font-family: var(--font-head);
   font-weight: 600;
   line-height: 1.1;
   letter-spacing: -0.005em;
@@ -116,7 +115,6 @@ table {
   width: auto; 
   border-collapse: collapse;
   font-size: 1rem;
-  font-family: var(--font-ui);
 }
 
 thead {
@@ -176,4 +174,49 @@ td:not(:last-child) {
 
 .btn:active {
   transform: translateY(0);
+}
+
+.sensor_reading__wrapper {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(24px, 5vw, 64px);
+  align-items: first baseline;
+}
+
+.form__wrapper {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px; /* Kellemes belső függőleges és vízszintes távolság */
+  box-shadow: var(--shadow-sm);
+  width: max-content;
+  max-width: 100%;
+}
+.form__wrapper h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.25rem;
+  text-decoration: none;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px; 
+}
+
+.form__grid {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px; /* Távolság a szöveg és az input között */
+  row-gap: 12px;    /* Távolság a sorok között (így lesznek szépen egymás alatt) */
+}
+
+/* Opcionális: Modern kinézet az input mezőknek */
+.form__grid input {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius, 6px);
+  font-size: 0.875rem;
+  width: 100%; /* Kitölti a grid által biztosított egyenlő helyet */
+}
+
+.form__grid input:focus {
+  outline: 2px solid var(--blue);
 }
