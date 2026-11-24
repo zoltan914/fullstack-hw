@@ -1,12 +1,14 @@
 package com.aldisued.iot.monitoring.controller;
 
 import com.aldisued.iot.monitoring.dto.AlertDto;
+import com.aldisued.iot.monitoring.entity.Alert;
 import com.aldisued.iot.monitoring.service.AlertService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -17,6 +19,12 @@ public class AlertController {
 
   public AlertController(AlertService alertService) {
     this.alertService = alertService;
+  }
+
+  // frontend requires a GET endpoint for all data
+  @GetMapping
+  public List<Alert>  getAllAlerts() {
+    return alertService.getAllAlerts();
   }
 
   @GetMapping("/latest")

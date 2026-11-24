@@ -3,10 +3,9 @@ package com.aldisued.iot.monitoring.controller;
 import com.aldisued.iot.monitoring.dto.SensorReadingDto;
 import com.aldisued.iot.monitoring.entity.SensorReading;
 import com.aldisued.iot.monitoring.service.SensorReadingService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/sensor-readings")
@@ -16,6 +15,12 @@ public class SensorReadingController {
 
   public SensorReadingController(SensorReadingService sensorReadingService) {
     this.sensorReadingService = sensorReadingService;
+  }
+
+  // frontend requires a GET endpoint for all data
+  @GetMapping
+  public List<SensorReading> getAllSensorReadings() {
+    return sensorReadingService.getAllSensorReadings();
   }
 
   @PostMapping

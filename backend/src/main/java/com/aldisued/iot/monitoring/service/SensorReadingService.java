@@ -8,6 +8,7 @@ import com.aldisued.iot.monitoring.repository.SensorRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class SensorReadingService {
@@ -19,6 +20,10 @@ public class SensorReadingService {
       SensorRepository sensorRepository) {
     this.sensorReadingRepository = sensorReadingRepository;
     this.sensorRepository = sensorRepository;
+  }
+
+  public List<SensorReading> getAllSensorReadings() {
+    return sensorReadingRepository.findAll();
   }
 
   public SensorReading saveSensorReading(SensorReadingDto sensorReadingDto) {

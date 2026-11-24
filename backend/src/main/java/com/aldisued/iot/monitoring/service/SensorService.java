@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @Service
 public class SensorService {
 
@@ -14,6 +16,10 @@ public class SensorService {
 
   public SensorService(SensorRepository sensorRepository) {
     this.sensorRepository = sensorRepository;
+  }
+
+  public List<Sensor> getAllSensors() {
+    return sensorRepository.findAll();
   }
 
   public Sensor saveSensor(SensorDto sensor) {

@@ -1,5 +1,6 @@
 package com.aldisued.iot.monitoring.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -18,6 +19,7 @@ public class Alert {
   @Column(nullable = false)
   private LocalDateTime timestamp;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "sensor_id")
   private Sensor sensor;

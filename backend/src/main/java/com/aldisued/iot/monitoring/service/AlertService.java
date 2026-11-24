@@ -10,6 +10,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,6 +27,10 @@ public class AlertService {
     this.alertRepository = alertRepository;
     this.sensorRepository = sensorRepository;
     this.kafkaTemplate = kafkaTemplate;
+  }
+
+  public List<Alert> getAllAlerts() {
+    return alertRepository.findAll();
   }
 
   public Alert saveAlert(AlertDto alertDto) {
