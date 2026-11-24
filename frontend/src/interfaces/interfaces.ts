@@ -20,6 +20,13 @@ export type Sensor = {
   seonsorReadings: SensorReading[] | []
 }
 
+// ─── REQUEST DTO-K (frontend → backend) ───────────────────────────────────────
+
+export type SensorReadingDto = {
+  sensorId: string,
+  value: number,
+  timestamp: Date
+}
 
 
 // ─── API RESPONSE HELPER ──────────────────────────────────────────────────

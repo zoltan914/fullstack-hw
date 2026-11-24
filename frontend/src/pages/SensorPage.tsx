@@ -22,15 +22,18 @@ export default function SensorPage() {
           <tr>
             <th>Sensor Name</th>
             <th>Sensor Type</th>
+            <th>Alert Count</th>
             <th>Show Sensor</th>
           </tr>
         </thead>
         <tbody>
           {sensors.map(sensor => {
+            const alertCount = sensor.alerts.length ?? 0
             return (
               <tr key={sensor.id}>
                 <td key={sensor.name}>{sensor.name}</td>
                 <td key={sensor.type}>{sensor.type}</td>
+                <td key={`count_${sensor.id}`}>{alertCount}</td>
                 <td>
                   <button 
                     className="btn"

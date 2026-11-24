@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { ApiResponse, Sensor, SensorReading } from "../interfaces/interfaces";
+import type { ApiResponse, Sensor, SensorReading, SensorReadingDto } from "../interfaces/interfaces";
 
 const api = axios.create({
   baseURL: '/',
@@ -30,3 +30,4 @@ api.interceptors.response.use(
 
 export const getAllSensors = (): ApiResponse<Sensor[]> => api.get('/sensors');
 export const getAllReadingsBySensorId = (sensorId: string): ApiResponse<SensorReading[]> => api.get(`/sensor-readings/${sensorId}`) 
+export const saveSensorReading = (data: SensorReadingDto): ApiResponse<SensorReading> => api.post('/sensor-readings', data)
