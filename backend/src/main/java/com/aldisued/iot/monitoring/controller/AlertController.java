@@ -23,7 +23,7 @@ public class AlertController {
 
   // frontend requires a GET endpoint for all data
   @GetMapping
-  public List<Alert>  getAllAlerts() {
+  public List<AlertDto>  getAllAlerts() {
     return alertService.getAllAlerts();
   }
 

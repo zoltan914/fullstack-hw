@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 export default function SensorPage() {
   const [sensors, setSensors] = useState<Sensor[]>([])
   const navigate = useNavigate(); 
+  console.log(sensors)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -27,22 +28,27 @@ export default function SensorPage() {
           </tr>
         </thead>
         <tbody>
-          {sensors.map(sensor => {
-            const alertCount = sensor.alerts.length ?? 0
-            return (
-              <tr key={sensor.id}>
-                <td key={sensor.name}>{sensor.name}</td>
-                <td key={sensor.type}>{sensor.type}</td>
-                <td key={`count_${sensor.id}`}>{alertCount}</td>
-                <td>
-                  <button 
-                    className="btn"
-                    onClick={() => navigate(`/sensors/${sensor.id}`)}
-                  >Show</button>
-                </td>
-              </tr>
+          {sensors.length === 0 ? (
+            <tr><td colSpan={4}>No sensors</td></tr>
+          ) : (
+            sensors.map(sensor => {
+                const alertCount = sensor.alerts.length ?? 0
+                return (
+                  <tr key={sensor.id}>
+                    <td key={sensor.name}>{sensor.name}</td>
+                    <td key={sensor.type}>{sensor.type}</td>
+                    <td key={`count_${sensor.id}`}>{alertCount}</td>
+                    <td>
+                      <button 
+                        className="btn"
+                        onClick={() => navigate(`/sensors/${sensor.id}`)}
+                      >Show</button>
+                    </td>
+                  </tr>
+                )
+              })
             )
-          })}
+          }
         </tbody>
       </table>
     </div>

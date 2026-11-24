@@ -103,16 +103,19 @@ export default function SensorReadingsPage() {
               </tr>
             </thead>
             <tbody>
-              {readings.length == 0 
-                ? <tr><td>No data</td></tr>
-                : readings.map(reading => {
-                return (
-                  <tr key={reading.id}>
-                    <td key={`val_${reading.id}`}>{reading.value}</td>
-                    <td key={`time_${reading.id}`}>{formatTimestamp(reading.timestamp)}</td>
-                  </tr>
+              {readings.length == 0 ? (
+                 <tr><td colSpan={2}>No data</td></tr>
+                ) : (
+                  readings.map(reading => {
+                    return (
+                      <tr key={reading.id}>
+                        <td key={`val_${reading.id}`}>{reading.value}</td>
+                        <td key={`time_${reading.id}`}>{formatTimestamp(reading.timestamp)}</td>
+                      </tr>
+                    )
+                  })
                 )
-              })}
+              }
             </tbody>
           </table>
         </div>

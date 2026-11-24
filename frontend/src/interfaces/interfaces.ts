@@ -4,6 +4,7 @@ export type Alert = {
   id: number
   message: string
   timestamp: Date
+  sensorId: string
 }
 
 export type SensorReading = {

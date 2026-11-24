@@ -29,8 +29,13 @@ public class AlertService {
     this.kafkaTemplate = kafkaTemplate;
   }
 
-  public List<Alert> getAllAlerts() {
-    return alertRepository.findAll();
+  public List<AlertDto> getAllAlerts() {
+    return alertRepository.findAll().stream()
+            .map(alert -> new AlertDto(
+                    alert.getSensor().getId(),
+                    alert.getMessage(),
+                    alert.getTimestamp()
+            )).toList();
   }
 
   public Alert saveAlert(AlertDto alertDto) {

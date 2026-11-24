@@ -1,11 +1,19 @@
-import { Outlet } from "react-router";
+import { Outlet, useNavigate } from "react-router";
 
 function Header() {
-    return (
-      <header className="header">
-          IoT Monitoring Dashboard
-      </header>
-    )
+  const navigate = useNavigate(); 
+  return (
+    <header className="header">
+        IoT Monitoring Dashboard
+        <span style={{paddingRight: '20px'}}/>
+        <button 
+          className="btn"
+          onClick={() => navigate('/alerts')}
+        >
+          Alerts
+        </button>
+    </header>
+  )
 }
 
 
