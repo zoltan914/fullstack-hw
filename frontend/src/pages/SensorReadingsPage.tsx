@@ -8,6 +8,7 @@ export default function SensorReadingsPage() {
   const { id } = useParams<{id: string}>();
   const navigate = useNavigate();
   const [readings, setReadings] = useState<SensorReading[]>([]); // Ide jönnek majd a mérések
+  const [error, setError] = useState<string | null>(null);
 
   // form states
   const [valueInput, setValueInput] = useState<string>("");
@@ -72,6 +73,7 @@ export default function SensorReadingsPage() {
       alert("Sensor reading saved successfully!")
     } catch(error) {
       console.error("Failed to save sensor reading:", error);
+      setError('Failed to save sensor reading')
     }
   };
 
@@ -91,14 +93,15 @@ export default function SensorReadingsPage() {
   return (
     <div>
       <button className="btn" onClick={() => navigate(-1)}>← Back</button>
+      {error && <p role="alert">{error}</p>}
       <p>Sensor Readings (ID: {id})</p>
       <div className="sensor_reading__wrapper">
         <div className="table__wrapper">
           <table>
             <thead>
               <tr>
-                <th>value</th>
-                <th>timestamp</th>
+                <th>Value</th>
+                <th>Timestamp</th>
               </tr>
             </thead>
             <tbody>

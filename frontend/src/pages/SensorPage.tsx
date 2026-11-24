@@ -4,19 +4,19 @@ import { getAllSensors } from "../services/api"
 import { useNavigate } from "react-router";
 
 export default function SensorPage() {
-  const [sensors, setSensors] = useState<Sensor[]>([])
   const navigate = useNavigate(); 
+  const [sensors, setSensors] = useState<Sensor[]>([])
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const allSensors = await getAllSensors()
-      setSensors(allSensors.data)
-    }
-    fetchData()
+    getAllSensors()
+      .then(res => setSensors(res.data))
+      .catch(() => setError("Failed to load sensors."))
   }, [])
 
   return (
     <div className="table__wrapper">
+      {error && <p role="alert">{error}</p>}
       <table>
         <thead>
           <tr>

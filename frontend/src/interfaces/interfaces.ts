@@ -14,7 +14,7 @@ export type SensorReading = {
 }
 
 export type Sensor = {
-  id: number
+  id: string
   name: string
   type: string
   alerts: Alert[] | []
