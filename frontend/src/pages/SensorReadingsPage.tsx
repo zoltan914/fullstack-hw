@@ -57,10 +57,9 @@ export default function SensorReadingsPage() {
       return;
     }
 
-    // Ezt az objektumot küldheted el a backendnek
     const newReading: SensorReadingDto = {
       value: numericValue, // Ez már garantáltan Double lesz (pl. 16.2)
-      timestamp: inputDate, // '2026-11-24T15:10:00' formátum
+      timestamp: timestampInput, // '2026-11-24T15:10:00' formátum
       sensorId: id!
     };
 
@@ -71,22 +70,21 @@ export default function SensorReadingsPage() {
       setValueInput("")
       setTimestampInput("")
       alert("Sensor reading saved successfully!")
+      setError(null)
     } catch(error) {
       console.error("Failed to save sensor reading:", error);
       setError('Failed to save sensor reading')
     }
   };
 
-
-
   useEffect(() => {
     if (!id) return;
-
-    const fetchData = async () => {
-      const allReadings = await getAllReadingsBySensorId(id)
-      setReadings(allReadings.data)
-    }
-    fetchData()
+    getAllReadingsBySensorId(id)
+      .then(res => {
+        setReadings(res.data)
+        setError(null)
+      })
+      .catch(() => setError("Failed to load radings."))
   }, [id]);
 
 

@@ -17,7 +17,10 @@ export default function AlertPage() {
   // szenzorok egyszer töltődnek be (a névfeloldáshoz)
   useEffect(() => {
     getAllSensors()
-      .then(res => setSensors(res.data))
+      .then(res => {
+        setSensors(res.data)
+        setError(null)
+      })
       .catch(() => setError("Failed to load sensors."));
   }, []);
 
@@ -60,7 +63,7 @@ export default function AlertPage() {
 
   return (
     <div>
-      <button className="btn" style={{marginBottom: '20px'}} onClick={() => navigate("/sensors")}>← Back</button>
+      <button className="btn" style={{marginBottom: '20px'}} onClick={() => navigate("/sensors")}>← Sensors</button>
       {error && <p role="alert">{error}</p>}
       <div className="table__wrapper">
         <table>

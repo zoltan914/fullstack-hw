@@ -10,7 +10,10 @@ export default function SensorPage() {
 
   useEffect(() => {
     getAllSensors()
-      .then(res => setSensors(res.data))
+      .then(res => {
+        setSensors(res.data)
+        setError(null)
+      })
       .catch(() => setError("Failed to load sensors."))
   }, [])
 

@@ -26,7 +26,7 @@ export type Sensor = {
 export type SensorReadingDto = {
   sensorId: string,
   value: number,
-  timestamp: Date
+  timestamp: string
 }
 
 
